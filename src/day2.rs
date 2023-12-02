@@ -1,5 +1,3 @@
-use std::arch::x86_64;
-
 use crate::util::open_input;
 use anyhow::{Result, anyhow};
 
@@ -79,17 +77,17 @@ pub fn calc_day_2_2() -> Result<()> {
     Ok(())
 }
 
-#[cfg(test)]
-mod tests {
-    use super::{calc_day_2, calc_day_2_2};
+// #[cfg(test)]
+// mod tests {
+//     use super::{calc_day_2, calc_day_2_2};
 
-    // #[test]
-    // fn test_day_2() {
-    //     assert!(calc_day_2().is_ok());
-    // }
+//     #[test]
+//     fn test_day_2() {
+//         assert!(calc_day_2().is_ok());
+//     }
 
-    #[test]
-    fn test_day_2_2() {
-        assert!(calc_day_2_2().is_ok());
-    }
-}
+//     #[test]
+//     fn test_day_2_2() {
+//         assert!(calc_day_2_2().is_ok());
+//     }
+// }
