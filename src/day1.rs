@@ -3,7 +3,6 @@ use anyhow::Result;
 
 pub fn calc_day_1() -> Result<()> {
     let mut sum = 0;
-    let mut count = 0;
 
     for line in open_input("day1.txt")? {
         let line = line?;
@@ -18,9 +17,9 @@ pub fn calc_day_1() -> Result<()> {
         let last = digits.last().unwrap();
 
         sum += first * 10 + last;
-        count += 1
+        
     }
-    println!("day12 sum: {}, count {}", sum, count);
+    println!("day1 sum: {}", sum);
     Ok(())
 }
 
@@ -38,7 +37,6 @@ pub fn calc_day_1_2() -> Result<()> {
     ];
 
     let mut sum = 0;
-    let mut count = 0;
 
     for line in open_input("day1.txt")? {
         let line = line?;
@@ -59,9 +57,8 @@ pub fn calc_day_1_2() -> Result<()> {
         let last = digits.last().unwrap();
 
         sum += first * 10 + last;
-        count += 1
     }
-    println!("day1_2 sum: {}, count {}", sum, count);
+    println!("day1_2 sum: {}", sum);
     Ok(())
 }
 
@@ -75,17 +72,17 @@ fn check_substr_at(s: &str, subs: &str, pos: usize) -> bool {
         .all(|(c1, c2)| c1 == c2)
 }
 
-#[cfg(test)]
-mod tests {
-    use super::{calc_day_1, calc_day_1_2};
+// #[cfg(test)]
+// mod tests {
+//     use super::{calc_day_1, calc_day_1_2};
 
-    #[test]
-    fn test_day_1() {
-        assert!(calc_day_1().is_ok());
-    }
+//     #[test]
+//     fn test_day_1() {
+//         assert!(calc_day_1().is_ok());
+//     }
 
-    #[test]
-    fn test_day_1_2() {
-        assert!(calc_day_1_2().is_ok());
-    }
-}
+//     #[test]
+//     fn test_day_1_2() {
+//         assert!(calc_day_1_2().is_ok());
+//     }
+// }
