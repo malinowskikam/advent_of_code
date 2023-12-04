@@ -1,10 +1,18 @@
-use crate::util::open_input;
+use util::open_input;
 use anyhow::Result;
 
-pub fn calc_day_1() -> Result<()> {
+fn main() -> Result<()> {
+    let f = "day1/day1.txt";
+    println!("day1");
+    calc_1(f)?;
+    calc_2(f)?;
+    Ok(())
+}
+
+pub fn calc_1(f: &'static str) -> Result<()> {
     let mut sum = 0;
 
-    for line in open_input("day1.txt")? {
+    for line in open_input(f)? {
         let line = line?;
         let mut digits = Vec::new();
 
@@ -19,11 +27,11 @@ pub fn calc_day_1() -> Result<()> {
         sum += first * 10 + last;
         
     }
-    println!("day1 sum: {}", sum);
+    println!("sum 1: {}", sum);
     Ok(())
 }
 
-pub fn calc_day_1_2() -> Result<()> {
+pub fn calc_2(f: &'static str) -> Result<()> {
     let words = [
         ("one", 1),
         ("two", 2),
@@ -38,7 +46,7 @@ pub fn calc_day_1_2() -> Result<()> {
 
     let mut sum = 0;
 
-    for line in open_input("day1.txt")? {
+    for line in open_input(f)? {
         let line = line?;
         let mut digits = Vec::new();
 
@@ -58,7 +66,7 @@ pub fn calc_day_1_2() -> Result<()> {
 
         sum += first * 10 + last;
     }
-    println!("day1_2 sum: {}", sum);
+    println!("sum 2: {}", sum);
     Ok(())
 }
 
@@ -71,18 +79,3 @@ fn check_substr_at(s: &str, subs: &str, pos: usize) -> bool {
         .zip(subs.chars())
         .all(|(c1, c2)| c1 == c2)
 }
-
-// #[cfg(test)]
-// mod tests {
-//     use super::{calc_day_1, calc_day_1_2};
-
-//     #[test]
-//     fn test_day_1() {
-//         assert!(calc_day_1().is_ok());
-//     }
-
-//     #[test]
-//     fn test_day_1_2() {
-//         assert!(calc_day_1_2().is_ok());
-//     }
-// }

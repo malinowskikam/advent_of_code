@@ -1,16 +1,23 @@
 use std::cmp::min;
-
-use crate::util::open_input;
+use util::open_input;
 use anyhow::Result;
 
-pub fn calc_day_3() -> Result<()> {
+fn main() -> Result<()> {
+    let f = "day3/day3.txt";
+    println!("day3");
+    calc_1(f)?;
+    calc_2(f)?;
+    Ok(())
+}
+
+pub fn calc_1(f: &'static str) -> Result<()> {
     let mut sum = 0u32;
 
     let mut numbers: Vec<(String, usize, usize)> = vec![];
     let mut signs: Vec<(usize, usize)> = vec![];
     let mut num_buff: Vec<char> = vec![];
 
-    for (row, line) in open_input("day3.txt")?.enumerate() {
+    for (row, line) in open_input(f)?.enumerate() {
         let line = line?;
 
         for (col, c) in (&line).chars().enumerate() {
@@ -52,18 +59,18 @@ pub fn calc_day_3() -> Result<()> {
         }
     }
 
-    println!("day3 sum: {}", sum);
+    println!("sum 1: {}", sum);
     Ok(())
 }
 
-pub fn calc_day_3_2() -> Result<()> {
+pub fn calc_2(f: &'static str) -> Result<()> {
     let mut sum = 0u32;
 
     let mut numbers: Vec<(String, usize, usize)> = vec![];
     let mut signs: Vec<(usize, usize)> = vec![];
     let mut num_buff: Vec<char> = vec![];
 
-    for (row, line) in open_input("day3.txt")?.enumerate() {
+    for (row, line) in open_input(f)?.enumerate() {
         let line = line?;
 
         for (col, c) in (&line).chars().enumerate() {
@@ -114,24 +121,6 @@ pub fn calc_day_3_2() -> Result<()> {
             sum += gear_ratio;
         }
     }
-    println!("day3_2 sum: {}", sum);
+    println!("sum 2: {}", sum);
     Ok(())
 }
-
-// #[cfg(test)]
-// mod tests {
-//     use super::{calc_day_3, calc_day_3_2};
-
-//     #[test]
-//     fn test_day_3() {
-//         let res = calc_day_3();
-//         assert!(res.is_ok(), "{:?}", res.err().unwrap());
-//     }
-
-//     #[test]
-//     fn test_day_3_2() {
-//         let res = calc_day_3_2();
-
-//         assert!(res.is_ok(), "{:?}", res.err().unwrap());
-//     }
-// }

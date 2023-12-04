@@ -1,14 +1,22 @@
-use crate::util::open_input;
-use anyhow::{Result, anyhow};
+use util::open_input;
+use anyhow::{anyhow, Result};
 
 const RED_LIMIT: u32 = 12;
 const GREEN_LIMIT: u32 = 13;
 const BLUE_LIMIT: u32 = 14;
 
-pub fn calc_day_2() -> Result<()> {
+fn main() -> Result<()> {
+    let f = "day2/day2.txt";
+    println!("day2");
+    calc_1(f)?;
+    calc_2(f)?;
+    Ok(())
+}
+
+pub fn calc_1(f: &'static str) -> Result<()> {
     let mut sum = 0;
 
-    for line in open_input("day2.txt")? {
+    for line in open_input(f)? {
         let line = line?;
         let sections: Vec<&str> = line.split(":").collect();
 
@@ -40,14 +48,14 @@ pub fn calc_day_2() -> Result<()> {
         }
     }
 
-    println!("day2 sum: {}", sum);
+    println!("sum 1: {}", sum);
     Ok(())
 }
 
-pub fn calc_day_2_2() -> Result<()> {
+pub fn calc_2(f: &'static str) -> Result<()> {
     let mut sum = 0;
 
-    for line in open_input("day2.txt")? {
+    for line in open_input(f)? {
         let line = line?;
         let sections: Vec<&str> = line.split(":").collect();
         
@@ -73,21 +81,6 @@ pub fn calc_day_2_2() -> Result<()> {
         sum += min_red * min_green * min_blue;
     }
 
-    println!("day2_2 sum: {}", sum);
+    println!("sum 2: {}", sum);
     Ok(())
 }
-
-// #[cfg(test)]
-// mod tests {
-//     use super::{calc_day_2, calc_day_2_2};
-
-//     #[test]
-//     fn test_day_2() {
-//         assert!(calc_day_2().is_ok());
-//     }
-
-//     #[test]
-//     fn test_day_2_2() {
-//         assert!(calc_day_2_2().is_ok());
-//     }
-// }
