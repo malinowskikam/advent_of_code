@@ -73,7 +73,7 @@ pub fn calc_day_2_2() -> Result<()> {
         sum += min_red * min_green * min_blue;
     }
 
-    println!("day2 sum: {}", sum);
+    println!("day2_2 sum: {}", sum);
     Ok(())
 }
 
