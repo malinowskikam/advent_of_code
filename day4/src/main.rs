@@ -60,6 +60,6 @@ pub fn calc_2(f: &'static str) -> Result<()> {
         }
     }
     
-    println!("day4 sum: {:?}", sum.iter().sum::<usize>());
+    println!("sum 2: {:?}", sum.iter().sum::<usize>());
     Ok(())
 }
