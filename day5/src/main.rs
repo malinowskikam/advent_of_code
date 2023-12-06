@@ -86,7 +86,7 @@ impl Range {
     fn apply_mapping(&self, mapping: &MappingRange) -> Range {
         Range {
             start: self.start + mapping.map,
-            end: self.end + mapping.map
+            end: self.end + mapping.map,
         }
     }
 }
@@ -116,26 +116,25 @@ fn map_range(range: Range, mappings: &Vec<MappingRange>) -> Vec<Range> {
     let mut mapped = false;
     for mapping in mappings {
         let i_range = range.intersect(mapping);
-        
+
         if i_range.count() > 0 {
             mapped = true;
             new_ranges.push(i_range.apply_mapping(mapping));
-            
-            
+
             let before_range = Range::new(range.start, i_range.start - 1);
-            
+
             if before_range.count() > 0 {
                 new_ranges.append(&mut map_range(before_range, mappings));
             }
 
             let after_range = Range::new(i_range.end + 1, range.end);
-            
+
             if after_range.count() > 0 {
                 new_ranges.append(&mut map_range(after_range, mappings))
             }
             break;
         }
-    };
+    }
 
     if !mapped {
         new_ranges.push(range);
@@ -169,7 +168,7 @@ pub fn calc_2(f: &'static str) -> Result<()> {
             .split(" ")
             .map(|s| s.parse::<i64>().unwrap()),
     )?;
-    
+
     // skip empty line
     lines_iter.next();
     while lines_iter.peek().is_some() {
