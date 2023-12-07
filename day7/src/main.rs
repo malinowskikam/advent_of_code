@@ -88,8 +88,7 @@ impl Hand {
 }
 
 pub fn calc_1(f: &'static str) -> Result<()> {
-    let mut sum = 0;
-
+    let sum: i64;
     let mut hands = Vec::new();
     for line in open_input(f)? {
         let line = line?;
@@ -192,7 +191,7 @@ impl Hand2 {
 }
 
 pub fn calc_2(f: &'static str) -> Result<()> {
-    let mut sum = 0;
+    let sum: i64;
 
     let mut hands = Vec::new();
     for line in open_input(f)? {
