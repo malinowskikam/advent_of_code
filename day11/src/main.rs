@@ -101,5 +101,5 @@ pub fn calc_2(f: &'static str) {
         }
     }
 
-    println!("sum 1: {}", sum);
+    println!("sum 2: {}", sum);
 }
