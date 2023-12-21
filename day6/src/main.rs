@@ -33,10 +33,10 @@ pub fn calc_1(f: &'static str) -> Result<()> {
     let line2 = lines_iter.next().ok_or(anyhow!("no second line"))??;
 
     let records: Vec<Race> = line1
-        .split(" ")
-        .filter(|s| *s != "")
+        .split(' ')
+        .filter(|s| !s.is_empty())
         .skip(1)
-        .zip(line2.split(" ").filter(|s| *s != "").skip(1))
+        .zip(line2.split(' ').filter(|s| !s.is_empty()).skip(1))
         .map(|tup| tup.try_into().unwrap())
         .collect();
     for record in records {
@@ -45,9 +45,9 @@ pub fn calc_1(f: &'static str) -> Result<()> {
             if record.distance < (record.time - t_acc) * t_acc {
                 ways += 1;
             };
-        };
+        }
         prod *= ways
-    };
+    }
 
     println!("sum 1: {}", prod);
     Ok(())
@@ -61,15 +61,27 @@ pub fn calc_2(f: &'static str) -> Result<()> {
     let line2 = lines_iter.next().ok_or(anyhow!("no second line"))??;
 
     let record = Race {
-        time: line1.split(" ").filter(|s| *s != "").skip(1).collect::<Vec<&str>>().join("").parse()?,
-        distance: line2.split(" ").filter(|s| *s != "").skip(1).collect::<Vec<&str>>().join("").parse()?
+        time: line1
+            .split(' ')
+            .filter(|s| !s.is_empty())
+            .skip(1)
+            .collect::<Vec<&str>>()
+            .join("")
+            .parse()?,
+        distance: line2
+            .split(' ')
+            .filter(|s| !s.is_empty())
+            .skip(1)
+            .collect::<Vec<&str>>()
+            .join("")
+            .parse()?,
     };
 
     for t_acc in 1..record.time {
         if record.distance < (record.time - t_acc) * t_acc {
             sum += 1;
         }
-    };
+    }
 
     println!("sum 1: {}", sum);
     Ok(())

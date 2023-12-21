@@ -88,16 +88,15 @@ impl Hand {
 }
 
 pub fn calc_1(f: &'static str) -> Result<()> {
-    let sum: i64;
     let mut hands = Vec::new();
     for line in open_input(f)? {
         let line = line?;
-        hands.push(Hand::from_vec(line.split(" ").collect())?)
+        hands.push(Hand::from_vec(line.split(' ').collect())?)
     }
 
     hands.sort_by(compare_hands);
 
-    sum = hands
+    let sum: i64 = hands
         .iter()
         .enumerate()
         .map(|(i, hand)| (i as i64 + 1) * hand.bet)
@@ -191,17 +190,15 @@ impl Hand2 {
 }
 
 pub fn calc_2(f: &'static str) -> Result<()> {
-    let sum: i64;
-
     let mut hands = Vec::new();
     for line in open_input(f)? {
         let line = line?;
-        hands.push(Hand2::from_vec(line.split(" ").collect())?)
+        hands.push(Hand2::from_vec(line.split(' ').collect())?)
     }
 
     hands.sort_by(compare_hands2);
-    
-    sum = hands
+
+    let sum: i64 = hands
         .iter()
         .enumerate()
         .map(|(i, hand)| (i as i64 + 1) * hand.bet)

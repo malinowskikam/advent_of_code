@@ -1,6 +1,6 @@
+use anyhow::Result;
 use std::cmp::min;
 use util::open_input;
-use anyhow::Result;
 
 fn main() -> Result<()> {
     let f = "day3/day3.txt";
@@ -20,7 +20,7 @@ pub fn calc_1(f: &'static str) -> Result<()> {
     for (row, line) in open_input(f)?.enumerate() {
         let line = line?;
 
-        for (col, c) in (&line).chars().enumerate() {
+        for (col, c) in line.chars().enumerate() {
             if c.is_ascii_digit() {
                 num_buff.push(c);
             } else if c != '.' {
@@ -29,11 +29,9 @@ pub fn calc_1(f: &'static str) -> Result<()> {
                     numbers.push((num_buff.iter().collect(), row, col - num_buff.len()));
                     num_buff.clear();
                 }
-            } else {
-                if !num_buff.is_empty() {
-                    numbers.push((num_buff.iter().collect(), row, col - num_buff.len()));
-                    num_buff.clear();
-                }
+            } else if !num_buff.is_empty() {
+                numbers.push((num_buff.iter().collect(), row, col - num_buff.len()));
+                num_buff.clear();
             }
         }
 
@@ -73,7 +71,7 @@ pub fn calc_2(f: &'static str) -> Result<()> {
     for (row, line) in open_input(f)?.enumerate() {
         let line = line?;
 
-        for (col, c) in (&line).chars().enumerate() {
+        for (col, c) in line.chars().enumerate() {
             if c.is_ascii_digit() {
                 num_buff.push(c);
             } else if c == '*' {
@@ -82,11 +80,9 @@ pub fn calc_2(f: &'static str) -> Result<()> {
                     numbers.push((num_buff.iter().collect(), row, col - num_buff.len()));
                     num_buff.clear();
                 }
-            } else {
-                if !num_buff.is_empty() {
-                    numbers.push((num_buff.iter().collect(), row, col - num_buff.len()));
-                    num_buff.clear();
-                }
+            } else if !num_buff.is_empty() {
+                numbers.push((num_buff.iter().collect(), row, col - num_buff.len()));
+                num_buff.clear();
             }
         }
 
@@ -106,7 +102,6 @@ pub fn calc_2(f: &'static str) -> Result<()> {
                 && sign.1 >= number.2 - min(number.2, 1)
                 && sign.1 <= number.2 + number.0.len()
             {
-
                 // sing row >=/<= number row -/+1
                 // sign col >=/<= number start col -1/end col +1
                 gear_ratio *= number.0.parse::<u32>()?;

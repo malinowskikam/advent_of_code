@@ -14,9 +14,9 @@ fn main() -> Result<()> {
 pub fn calc_1(f: &'static str) -> Result<()> {
     let mut lines_iter = open_input(f)?.peekable();
     let header_line = lines_iter.next().unwrap()?;
-    let mut seed_numbers: Vec<i64> = header_line.split(":").collect::<Vec<&str>>()[1]
+    let mut seed_numbers: Vec<i64> = header_line.split(':').collect::<Vec<&str>>()[1]
         .trim()
-        .split(" ")
+        .split(' ')
         .map(|s| s.parse::<i64>().unwrap())
         .collect();
 
@@ -31,12 +31,12 @@ pub fn calc_1(f: &'static str) -> Result<()> {
 
         for line in &mut lines_iter {
             let line = line?;
-            if line == "" {
+            if line.is_empty() {
                 break;
             }
             let map_entry: Vec<i64> = line
                 .trim()
-                .split(" ")
+                .split(' ')
                 .map(|s| s.parse::<i64>().unwrap())
                 .collect();
             assert!(map_entry.len() == 3);
@@ -78,7 +78,7 @@ impl Range {
 
     fn from_count(start: i64, count: i64) -> Self {
         Range {
-            start: start,
+            start,
             end: start + count - 1,
         }
     }
@@ -163,9 +163,9 @@ pub fn calc_2(f: &'static str) -> Result<()> {
     let mut lines_iter = open_input(f)?.peekable();
     let header_line = lines_iter.next().unwrap()?;
     let mut seed_ranges = into_ranges(
-        header_line.split(":").collect::<Vec<&str>>()[1]
+        header_line.split(':').collect::<Vec<&str>>()[1]
             .trim()
-            .split(" ")
+            .split(' ')
             .map(|s| s.parse::<i64>().unwrap()),
     )?;
 
@@ -179,12 +179,12 @@ pub fn calc_2(f: &'static str) -> Result<()> {
 
         for line in &mut lines_iter {
             let line = line?;
-            if line == "" {
+            if line.is_empty() {
                 break;
             }
             let map_entry: Vec<i64> = line
                 .trim()
-                .split(" ")
+                .split(' ')
                 .map(|s| s.parse::<i64>().unwrap())
                 .collect();
             assert!(map_entry.len() == 3);

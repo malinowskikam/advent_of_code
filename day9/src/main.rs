@@ -13,7 +13,7 @@ pub fn calc_1(f: &'static str) {
         let line = line.unwrap();
 
         let mut line_report: Vec<Vec<i32>> = vec![];
-        line_report.push(line.split(" ").map(|v| v.parse().unwrap()).collect());
+        line_report.push(line.split(' ').map(|v| v.parse().unwrap()).collect());
 
         //generate derivatives
         while !line_report.last().unwrap().iter().all(|x| *x == 0) {
@@ -28,10 +28,10 @@ pub fn calc_1(f: &'static str) {
 
         //extrapolate
         let mut extrapolated_value = 0;
-        for i in (0..=(line_report.len()-2)).rev() {
-            extrapolated_value = line_report[i].last().unwrap() + extrapolated_value
+        for i in (0..=(line_report.len() - 2)).rev() {
+            extrapolated_value += line_report[i].last().unwrap()
         }
-             
+
         sum += extrapolated_value;
     }
     println!("sum 1: {}", sum);
@@ -43,7 +43,7 @@ pub fn calc_2(f: &'static str) {
         let line = line.unwrap();
 
         let mut line_report: Vec<Vec<i32>> = vec![];
-        line_report.push(line.split(" ").map(|v| v.parse().unwrap()).collect());
+        line_report.push(line.split(' ').map(|v| v.parse().unwrap()).collect());
 
         //generate derivatives
         while !line_report.last().unwrap().iter().all(|x| *x == 0) {
@@ -58,10 +58,10 @@ pub fn calc_2(f: &'static str) {
 
         //extrapolate
         let mut extrapolated_value = 0;
-        for i in (0..=(line_report.len()-2)).rev() {
+        for i in (0..=(line_report.len() - 2)).rev() {
             extrapolated_value = line_report[i].first().unwrap() - extrapolated_value
         }
-             
+
         sum += extrapolated_value;
     }
     println!("sum 2: {}", sum);

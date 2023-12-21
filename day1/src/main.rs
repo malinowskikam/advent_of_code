@@ -1,5 +1,5 @@
-use util::open_input;
 use anyhow::Result;
+use util::open_input;
 
 fn main() -> Result<()> {
     let f = "day1/day1.txt";
@@ -25,7 +25,6 @@ pub fn calc_1(f: &'static str) -> Result<()> {
         let last = digits.last().unwrap();
 
         sum += first * 10 + last;
-        
     }
     println!("sum 1: {}", sum);
     Ok(())

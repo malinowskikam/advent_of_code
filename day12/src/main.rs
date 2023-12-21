@@ -19,19 +19,17 @@ pub fn count_hash(
 ) -> usize {
     if group_index >= groups.len() {
         0
+    } else if current_group_len < groups[group_index] {
+        count_possibilities(
+            source,
+            index + 1,
+            groups,
+            group_index,
+            current_group_len + 1,
+            cache,
+        )
     } else {
-        if current_group_len < groups[group_index] {
-            count_possibilities(
-                source,
-                index + 1,
-                groups,
-                group_index,
-                current_group_len + 1,
-                cache,
-            )
-        } else {
-            0
-        }
+        0
     }
 }
 
@@ -52,12 +50,10 @@ pub fn count_dot(
             current_group_len,
             cache,
         )
+    } else if groups[group_index] == current_group_len {
+        count_possibilities(source, index + 1, groups, group_index + 1, 0, cache)
     } else {
-        if groups[group_index] == current_group_len {
-            count_possibilities(source, index + 1, groups, group_index + 1, 0, cache)
-        } else {
-            0
-        }
+        0
     }
 }
 
@@ -114,10 +110,10 @@ pub fn calc_1(f: &'static str) {
     for line in open_input(f).unwrap() {
         let line = line.unwrap();
 
-        let parts = line.split(" ").collect::<Vec<_>>();
+        let parts = line.split(' ').collect::<Vec<_>>();
         let arrangement = parts[0];
         let groups = parts[1]
-            .split(",")
+            .split(',')
             .map(|x| x.parse::<usize>().unwrap())
             .collect::<Vec<_>>();
 
@@ -131,17 +127,17 @@ pub fn calc_1(f: &'static str) {
 pub fn calc_2(f: &'static str) {
     let mut sum = 0;
 
-    for (i, line) in open_input(f).unwrap().enumerate() {
+    for (_i, line) in open_input(f).unwrap().enumerate() {
         let line = line.unwrap();
 
-        let parts = line.split(" ").collect::<Vec<_>>();
+        let parts = line.split(' ').collect::<Vec<_>>();
         let arrangement = format!(
             "{}?{}?{}?{}?{}",
             parts[0], parts[0], parts[0], parts[0], parts[0]
         );
 
         let groups_line = parts[1]
-            .split(",")
+            .split(',')
             .map(|x| x.parse::<usize>().unwrap())
             .collect::<Vec<_>>();
         let mut groups = vec![];

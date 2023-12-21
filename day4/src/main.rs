@@ -1,5 +1,5 @@
-use util::open_input;
 use anyhow::Result;
+use util::open_input;
 
 fn main() -> Result<()> {
     let f = "day4/day4.txt";
@@ -18,11 +18,19 @@ pub fn calc_1(f: &'static str) -> Result<()> {
         let sections: Vec<&str> = line.split_terminator(&[':', '|']).collect();
         assert!(sections.len() == 3);
 
-        let winning_ns: Vec<&str> = sections[1].trim().split_terminator(" ").filter(|n| !n.is_empty()).collect();
-        let count = sections[2].trim().split_terminator(" ").filter(|n| !n.is_empty() && winning_ns.contains(n)).count() as u32;
+        let winning_ns: Vec<&str> = sections[1]
+            .trim()
+            .split_terminator(' ')
+            .filter(|n| !n.is_empty())
+            .collect();
+        let count = sections[2]
+            .trim()
+            .split_terminator(' ')
+            .filter(|n| !n.is_empty() && winning_ns.contains(n))
+            .count() as u32;
 
         if count > 0 {
-            sum += 2u32.pow(count-1);
+            sum += 2u32.pow(count - 1);
         }
     }
 
@@ -32,7 +40,7 @@ pub fn calc_1(f: &'static str) -> Result<()> {
 
 pub fn calc_2(f: &'static str) -> Result<()> {
     let mut sum = vec![0];
-    
+
     for (n, line) in open_input(f)?.enumerate() {
         let line = line?;
 
@@ -46,10 +54,18 @@ pub fn calc_2(f: &'static str) -> Result<()> {
         let sections: Vec<&str> = line.split_terminator(&[':', '|']).collect();
         assert!(sections.len() == 3);
 
-        let winning_ns: Vec<&str> = sections[1].trim().split_terminator(" ").filter(|n| !n.is_empty()).collect();
+        let winning_ns: Vec<&str> = sections[1]
+            .trim()
+            .split_terminator(' ')
+            .filter(|n| !n.is_empty())
+            .collect();
 
-        let count = sections[2].trim().split_terminator(" ").filter(|n| !n.is_empty() && winning_ns.contains(n)).count();
-        
+        let count = sections[2]
+            .trim()
+            .split_terminator(' ')
+            .filter(|n| !n.is_empty() && winning_ns.contains(n))
+            .count();
+
         //add extra cards
         for i in 0..count {
             if sum.len() < n + 2 + i {
@@ -59,7 +75,7 @@ pub fn calc_2(f: &'static str) -> Result<()> {
             }
         }
     }
-    
+
     println!("sum 2: {:?}", sum.iter().sum::<usize>());
     Ok(())
 }

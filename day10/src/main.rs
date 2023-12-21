@@ -1,4 +1,4 @@
-use std::{fmt::Display, collections::VecDeque};
+use std::{collections::VecDeque, fmt::Display};
 
 use util::open_input;
 
@@ -34,12 +34,12 @@ impl Tile {
             'S' => TileType::StartingPosition,
             _ => panic!(),
         };
-        Self {x, y, ttype}
+        Self { x, y, ttype }
     }
 
     fn get_n<'a>(&self, map: &'a Vec<Vec<Tile>>) -> Option<&'a Tile> {
         if self.x > 0 {
-            Some(&map[self.x -1][ self.y])
+            Some(&map[self.x - 1][self.y])
         } else {
             None
         }
@@ -47,7 +47,7 @@ impl Tile {
 
     fn get_s<'a>(&self, map: &'a Vec<Vec<Tile>>) -> Option<&'a Tile> {
         if self.x < map.len() {
-            Some(&map[self.x + 1][ self.y])
+            Some(&map[self.x + 1][self.y])
         } else {
             None
         }
@@ -55,7 +55,7 @@ impl Tile {
 
     fn get_w<'a>(&self, map: &'a Vec<Vec<Tile>>) -> Option<&'a Tile> {
         if self.y > 0 {
-            Some(&map[self.x][ self.y - 1])
+            Some(&map[self.x][self.y - 1])
         } else {
             None
         }
@@ -63,7 +63,7 @@ impl Tile {
 
     fn get_e<'a>(&self, map: &'a Vec<Vec<Tile>>) -> Option<&'a Tile> {
         if self.y < map[0].len() {
-            Some(&map[self.x][ self.y + 1])
+            Some(&map[self.x][self.y + 1])
         } else {
             None
         }
@@ -71,14 +71,42 @@ impl Tile {
 
     fn get_connected<'a>(&self, map: &'a Vec<Vec<Tile>>) -> Vec<&'a Tile> {
         match self.ttype {
-            TileType::VerticalPipe => vec![self.get_n(map), self.get_s(map)].into_iter().flatten().collect(),
-            TileType::HorizontalPipe => vec![self.get_e(map), self.get_w(map)].into_iter().flatten().collect(),
-            TileType::NEBend => vec![self.get_n(map), self.get_e(map)].into_iter().flatten().collect(),
-            TileType::NWBend => vec![self.get_n(map), self.get_w(map)].into_iter().flatten().collect(),
-            TileType::SWBend => vec![self.get_s(map), self.get_w(map)].into_iter().flatten().collect(),
-            TileType::SEBend => vec![self.get_s(map), self.get_e(map)].into_iter().flatten().collect(),
+            TileType::VerticalPipe => vec![self.get_n(map), self.get_s(map)]
+                .into_iter()
+                .flatten()
+                .collect(),
+            TileType::HorizontalPipe => vec![self.get_e(map), self.get_w(map)]
+                .into_iter()
+                .flatten()
+                .collect(),
+            TileType::NEBend => vec![self.get_n(map), self.get_e(map)]
+                .into_iter()
+                .flatten()
+                .collect(),
+            TileType::NWBend => vec![self.get_n(map), self.get_w(map)]
+                .into_iter()
+                .flatten()
+                .collect(),
+            TileType::SWBend => vec![self.get_s(map), self.get_w(map)]
+                .into_iter()
+                .flatten()
+                .collect(),
+            TileType::SEBend => vec![self.get_s(map), self.get_e(map)]
+                .into_iter()
+                .flatten()
+                .collect(),
             TileType::Ground => vec![],
-            TileType::StartingPosition => vec![self.get_n(map), self.get_s(map), self.get_e(map), self.get_w(map)].iter().flatten().filter(|t| t.get_connected(map).contains(&self)).map(|x| *x).collect()
+            TileType::StartingPosition => [
+                self.get_n(map),
+                self.get_s(map),
+                self.get_e(map),
+                self.get_w(map),
+            ]
+            .iter()
+            .flatten()
+            .filter(|t| t.get_connected(map).contains(&self))
+            .copied()
+            .collect(),
         }
     }
 }
@@ -113,7 +141,7 @@ pub fn calc_1(f: &'static str) {
     let mut sum = 0;
     let mut map = vec![];
 
-    let mut start_x = None; 
+    let mut start_x = None;
     let mut start_y = None;
 
     for (x, line) in open_input(f).unwrap().enumerate() {
@@ -128,9 +156,9 @@ pub fn calc_1(f: &'static str) {
     }
 
     let mut distance_map = vec![vec![None; map[0].len()]; map.len()];
-    let mut queue = VecDeque::from([(&map[start_x.unwrap()][ start_y.unwrap()], 0)]);
+    let mut queue = VecDeque::from([(&map[start_x.unwrap()][start_y.unwrap()], 0)]);
 
-    while queue.len() > 0 {
+    while !queue.is_empty() {
         let (tile, current_d) = queue.pop_front().unwrap();
         if let Some(previous_d) = distance_map[tile.x][tile.y] {
             if current_d < previous_d {
@@ -141,13 +169,18 @@ pub fn calc_1(f: &'static str) {
         } else {
             distance_map[tile.x][tile.y] = Some(current_d);
         }
-    
+
         for t in tile.get_connected(&map) {
             queue.push_back((t, current_d + 1));
         }
     }
 
-    sum = *distance_map.iter().flat_map(|r| r.iter()).flatten().max().unwrap();
+    sum = *distance_map
+        .iter()
+        .flat_map(|r| r.iter())
+        .flatten()
+        .max()
+        .unwrap();
     println!("sum 1: {}", sum);
 }
 
