@@ -53,7 +53,7 @@ impl Tile {
         }
     }
 
-    fn get_w<'a>(&self, map: &'a Vec<Vec<Tile>>) -> Option<&'a Tile> {
+    fn get_w<'a>(&self, map: &'a [Vec<Tile>]) -> Option<&'a Tile> {
         if self.y > 0 {
             Some(&map[self.x][self.y - 1])
         } else {
@@ -61,7 +61,7 @@ impl Tile {
         }
     }
 
-    fn get_e<'a>(&self, map: &'a Vec<Vec<Tile>>) -> Option<&'a Tile> {
+    fn get_e<'a>(&self, map: &'a [Vec<Tile>]) -> Option<&'a Tile> {
         if self.y < map[0].len() {
             Some(&map[self.x][self.y + 1])
         } else {
