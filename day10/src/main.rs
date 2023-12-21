@@ -37,7 +37,7 @@ impl Tile {
         Self { x, y, ttype }
     }
 
-    fn get_n<'a>(&self, map: &'a Vec<Vec<Tile>>) -> Option<&'a Tile> {
+    fn get_n<'a>(&self, map: &'a [Vec<Tile>]) -> Option<&'a Tile> {
         if self.x > 0 {
             Some(&map[self.x - 1][self.y])
         } else {
@@ -45,7 +45,7 @@ impl Tile {
         }
     }
 
-    fn get_s<'a>(&self, map: &'a Vec<Vec<Tile>>) -> Option<&'a Tile> {
+    fn get_s<'a>(&self, map: &'a [Vec<Tile>]) -> Option<&'a Tile> {
         if self.x < map.len() {
             Some(&map[self.x + 1][self.y])
         } else {
@@ -138,7 +138,6 @@ fn main() {
 }
 
 pub fn calc_1(f: &'static str) {
-    let mut sum = 0;
     let mut map = vec![];
 
     let mut start_x = None;
@@ -175,7 +174,7 @@ pub fn calc_1(f: &'static str) {
         }
     }
 
-    sum = *distance_map
+    let sum = *distance_map
         .iter()
         .flat_map(|r| r.iter())
         .flatten()
