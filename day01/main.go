@@ -20,8 +20,8 @@ func part1() {
 
 	scanner := bufio.NewScanner(fd)
 
-	max_value := 0
-	current_value := 0
+	maxValue := 0
+	currentValue := 0
 
 	for scanner.Scan() {
 		if scanner.Err() != nil {
@@ -35,15 +35,15 @@ func part1() {
 			if err != nil {
 				panic(err)
 			}
-			current_value += num
+			currentValue += num
 		} else {
-			if current_value > max_value {
-				max_value = current_value
+			if currentValue > maxValue {
+				maxValue = currentValue
 			}
-			current_value = 0
+			currentValue = 0
 		}
 	}
-	fmt.Println(max_value)
+	fmt.Println(maxValue)
 }
 
 func part2() {
@@ -54,9 +54,8 @@ func part2() {
 
 	scanner := bufio.NewScanner(fd)
 
-	max_values := []int{0, 0, 0}
-
-	current_value := 0
+	maxValue := []int{0, 0, 0}
+	currentValue := 0
 
 	for scanner.Scan() {
 		if scanner.Err() != nil {
@@ -70,24 +69,24 @@ func part2() {
 			if err != nil {
 				panic(err)
 			}
-			current_value += num
+			currentValue += num
 		} else {
 			// Finish a sequence
-			for i := 0; i < len(max_values); i++ {
-				if current_value > max_values[i] {
+			for i := 0; i < len(maxValue); i++ {
+				if currentValue > maxValue[i] {
 					// Move lower values left
 					if i > 0 {
-						max_values[i-1] = max_values[i]
+						maxValue[i-1] = maxValue[i]
 					}
-					max_values[i] = current_value
+					maxValue[i] = currentValue
 				}
 			}
-			current_value = 0
+			currentValue = 0
 		}
 	}
 
 	sum := 0
-	for _, num := range max_values {
+	for _, num := range maxValue {
 		sum += num
 	}
 	fmt.Println(sum)

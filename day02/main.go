@@ -20,7 +20,7 @@ func part1() {
 
 	scanner := bufio.NewScanner(fd)
 
-	result_values := []int{0, 6, 3}
+	resultValues := []int{0, 6, 3}
 	score := 0
 
 	for scanner.Scan() {
@@ -31,11 +31,11 @@ func part1() {
 		line := scanner.Text()
 
 		split := strings.Fields(line)
-		op_pick := int(split[0][0]-'A') + 1
-		my_pick := int(split[1][0]-'X') + 1
-		result := (op_pick - my_pick + 2) % 3
+		opPick := int(split[0][0]-'A') + 1
+		myPick := int(split[1][0]-'X') + 1
+		result := (opPick - myPick + 2) % 3
 
-		score += my_pick + result_values[result]
+		score += myPick + resultValues[result]
 	}
 	fmt.Println(score)
 }
@@ -48,7 +48,7 @@ func part2() {
 
 	scanner := bufio.NewScanner(fd)
 
-	result_values := []int{0, 3, 6}
+	resultValues := []int{0, 3, 6}
 	score := 0
 
 	for scanner.Scan() {
@@ -59,11 +59,11 @@ func part2() {
 		line := scanner.Text()
 
 		split := strings.Fields(line)
-		op_pick := int(split[0][0]-'A') + 1
+		opPick := int(split[0][0]-'A') + 1
 		result := int(split[1][0] - 'X')
-		my_pick := (op_pick+result+1)%3 + 1
+		myPick := (opPick+result+1)%3 + 1
 
-		score += my_pick + result_values[result]
+		score += myPick + resultValues[result]
 
 	}
 	fmt.Println(score)

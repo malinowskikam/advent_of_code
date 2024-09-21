@@ -22,28 +22,28 @@ func part1() {
 
 	for scanner.Scan() {
 		line := scanner.Text()
-		line_split := len(line) / 2
-		line_left := line[:line_split]
-		line_right := line[line_split:]
+		lineSplit := len(line) / 2
+		lineLeft := line[:lineSplit]
+		lineRight := line[lineSplit:]
 
 		set := map[byte]bool{}
-		common_value := byte(0)
-		for _, b := range []byte(line_left) {
+		commonValue := byte(0)
+		for _, b := range []byte(lineLeft) {
 			set[b] = true
 		}
 
-		for _, b := range []byte(line_right) {
+		for _, b := range []byte(lineRight) {
 			_, exists := set[b]
 			if exists {
-				common_value = b
+				commonValue = b
 				break
 			}
 		}
 
-		if common_value >= 'A' && common_value <= 'Z' {
-			sum += int(common_value - 'A' + 27)
-		} else if common_value >= 'a' && common_value <= 'z' {
-			sum += int(common_value - 'a' + 1)
+		if commonValue >= 'A' && commonValue <= 'Z' {
+			sum += int(commonValue - 'A' + 27)
+		} else if commonValue >= 'a' && commonValue <= 'z' {
+			sum += int(commonValue - 'a' + 1)
 		}
 	}
 	fmt.Println(sum)
@@ -72,34 +72,34 @@ func part2() {
 		if index == 2 {
 			index = -1
 
-			set_first_line := map[byte]bool{}
+			setFirstLine := map[byte]bool{}
 			for _, b := range []byte(lines[0]) {
-				set_first_line[b] = true
+				setFirstLine[b] = true
 			}
 
-			set_first_two_lines := map[byte]bool{}
+			setFirstTwoLines := map[byte]bool{}
 			for _, b := range []byte(lines[1]) {
-				_, exists := set_first_line[b]
+				_, exists := setFirstLine[b]
 				if exists {
-					set_first_two_lines[b] = true
+					setFirstTwoLines[b] = true
 				}
 			}
 
-			common_value := byte(0)
+			commonValue := byte(0)
 			for _, b := range []byte(lines[2]) {
-				_, exists := set_first_two_lines[b]
+				_, exists := setFirstTwoLines[b]
 				if exists {
-					common_value = b
+					commonValue = b
 					break
 				}
 			}
 
-			fmt.Println(common_value, string(common_value))
+			fmt.Println(commonValue, string(commonValue))
 
-			if common_value >= 'A' && common_value <= 'Z' {
-				sum += int(common_value - 'A' + 27)
-			} else if common_value >= 'a' && common_value <= 'z' {
-				sum += int(common_value - 'a' + 1)
+			if commonValue >= 'A' && commonValue <= 'Z' {
+				sum += int(commonValue - 'A' + 27)
+			} else if commonValue >= 'a' && commonValue <= 'z' {
+				sum += int(commonValue - 'a' + 1)
 			}
 		}
 
