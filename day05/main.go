@@ -48,10 +48,9 @@ func part1() {
 		}
 	}
 
-
 	for i := range stacks {
-        slices.Reverse(stacks[i])
-    }
+		slices.Reverse(stacks[i])
+	}
 
 	scanner.Scan() // Skip empty line
 
@@ -78,7 +77,7 @@ func part1() {
 			stacks[to-1] = append(stacks[to-1], v)
 		}
 	}
-    
+
 	for i := range stacks {
 		for j := range stacks[i] {
 			fmt.Printf("[%c] ", stacks[i][j])
@@ -121,10 +120,9 @@ func part2() {
 		}
 	}
 
-
 	for i := range stacks {
-        slices.Reverse(stacks[i])
-    }
+		slices.Reverse(stacks[i])
+	}
 
 	scanner.Scan() // Skip empty line
 
@@ -145,10 +143,10 @@ func part2() {
 			panic(err)
 		}
 
-		v := stacks[from-1][len(stacks[from-1])-n:len(stacks[from-1])]
-        stacks[from-1] = stacks[from-1][:len(stacks[from-1])-n]
-        stacks[to-1] = append(stacks[to-1], v...)
-    }
+		v := stacks[from-1][len(stacks[from-1])-n : len(stacks[from-1])]
+		stacks[from-1] = stacks[from-1][:len(stacks[from-1])-n]
+		stacks[to-1] = append(stacks[to-1], v...)
+	}
 
 	for i := range stacks {
 		for j := range stacks[i] {
