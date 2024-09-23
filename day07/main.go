@@ -59,18 +59,18 @@ func part2() {
 	dirs := make(map[string]int64)
 	parseDirectory(scanner, "/", dirs)
 
-    total := int64(70000000)
-    required := int64(30000000)
-    current := dirs["/"]
-    toDelete := current
+	total := int64(70000000)
+	required := int64(30000000)
+	current := dirs["/"]
+	toDelete := current
 
-    for _, val := range dirs {
-        if total - (current - val) >= required && val < toDelete {
-            toDelete = val
-        }
-    }
+	for _, val := range dirs {
+		if total-(current-val) >= required && val < toDelete {
+			toDelete = val
+		}
+	}
 
-    fmt.Println(toDelete)
+	fmt.Println(toDelete)
 }
 
 func parseDirectory(scanner *bufio.Scanner, name string, dirs map[string]int64) int64 {
@@ -103,4 +103,3 @@ func parseDirectory(scanner *bufio.Scanner, name string, dirs map[string]int64) 
 	dirs[name] = size
 	return size
 }
-
