@@ -6,8 +6,6 @@ import (
 	"fmt"
 	"math"
 	"os"
-	// "strconv"
-	// "strings"
 )
 
 func main() {
@@ -110,12 +108,12 @@ func part1() {
 	// Dijkstra's
 	pq := make(PriorityQueue, len(grid)*len(grid[0]))
 
-    for i := range grid {
-        for j := range grid[i] {
-            pq[i*len(grid[0]) + j] = &grid[i][j]
-            grid[i][j].index = i*len(grid[0]) + j
-        }
-    }
+	for i := range grid {
+		for j := range grid[i] {
+			pq[i*len(grid[0])+j] = &grid[i][j]
+			grid[i][j].index = i*len(grid[0]) + j
+		}
+	}
 	heap.Init(&pq)
 
 	for pq.Len() > 0 {
@@ -126,11 +124,11 @@ func part1() {
 			break
 		}
 
-        d := p.distance + 1
+		d := p.distance + 1
 
 		//above neighbor
 		if p.row > 0 {
-            o := &grid[p.row-1][p.col]
+			o := &grid[p.row-1][p.col]
 			if p.isNeighbor(o) && o.distance > d {
 				pq.Update(o, d)
 			}
@@ -138,7 +136,7 @@ func part1() {
 
 		//below neighbor
 		if p.row < len(grid)-1 {
-            o := &grid[p.row+1][p.col]
+			o := &grid[p.row+1][p.col]
 			if p.isNeighbor(o) && o.distance > d {
 				pq.Update(o, d)
 			}
@@ -146,7 +144,7 @@ func part1() {
 
 		//left neighbor
 		if p.col > 0 {
-            o := &grid[p.row][p.col-1]
+			o := &grid[p.row][p.col-1]
 			if p.isNeighbor(o) && o.distance > d {
 				pq.Update(o, d)
 			}
@@ -154,7 +152,7 @@ func part1() {
 
 		//right neighbor
 		if p.col < len(grid[p.row])-1 {
-            o := &grid[p.row][p.col+1]
+			o := &grid[p.row][p.col+1]
 			if p.isNeighbor(o) && o.distance > d {
 				pq.Update(o, d)
 			}
@@ -164,7 +162,7 @@ func part1() {
 }
 
 func (p *Point) isNeighbor2(o *Point) bool {
-	return p.elevation -1 <= o.elevation
+	return p.elevation-1 <= o.elevation
 }
 
 func part2() {
@@ -191,7 +189,7 @@ func part2() {
 				row[j].elevation = 'a'
 			} else if b == 'E' {
 				row[j].elevation = 'z'
-                row[j].distance = 0
+				row[j].distance = 0
 			}
 		}
 
@@ -202,12 +200,12 @@ func part2() {
 	// Dijkstra's
 	pq := make(PriorityQueue, len(grid)*len(grid[0]))
 
-    for i := range grid {
-        for j := range grid[i] {
-            pq[i*len(grid[0]) + j] = &grid[i][j]
-            grid[i][j].index = i*len(grid[0]) + j
-        }
-    }
+	for i := range grid {
+		for j := range grid[i] {
+			pq[i*len(grid[0])+j] = &grid[i][j]
+			grid[i][j].index = i*len(grid[0]) + j
+		}
+	}
 	heap.Init(&pq)
 
 	for pq.Len() > 0 {
@@ -218,11 +216,11 @@ func part2() {
 			break
 		}
 
-        d := p.distance + 1
+		d := p.distance + 1
 
 		//above neighbor
 		if p.row > 0 {
-            o := &grid[p.row-1][p.col]
+			o := &grid[p.row-1][p.col]
 			if p.isNeighbor2(o) && o.distance > d {
 				pq.Update(o, d)
 			}
@@ -230,7 +228,7 @@ func part2() {
 
 		//below neighbor
 		if p.row < len(grid)-1 {
-            o := &grid[p.row+1][p.col]
+			o := &grid[p.row+1][p.col]
 			if p.isNeighbor2(o) && o.distance > d {
 				pq.Update(o, d)
 			}
@@ -238,7 +236,7 @@ func part2() {
 
 		//left neighbor
 		if p.col > 0 {
-            o := &grid[p.row][p.col-1]
+			o := &grid[p.row][p.col-1]
 			if p.isNeighbor2(o) && o.distance > d {
 				pq.Update(o, d)
 			}
@@ -246,7 +244,7 @@ func part2() {
 
 		//right neighbor
 		if p.col < len(grid[p.row])-1 {
-            o := &grid[p.row][p.col+1]
+			o := &grid[p.row][p.col+1]
 			if p.isNeighbor2(o) && o.distance > d {
 				pq.Update(o, d)
 			}
