@@ -25,6 +25,7 @@ void part1() {
         left.push_back(l);
         right.push_back(r);
     }
+    input.close();
 
     std::sort(left.begin(), left.end());
     std::sort(right.begin(), right.end());
@@ -48,6 +49,7 @@ void part2() {
         left.push_back(l);
         right[r]++;
     }
+    input.close();
 
     for (int i = 0; i < left.size(); i++) {
         int n = left[i];
