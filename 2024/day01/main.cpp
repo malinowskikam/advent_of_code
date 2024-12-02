@@ -20,7 +20,6 @@ void part1() {
     std::vector<int> right;
 
     int l, r;
-
     std::ifstream input = open_input("input/input01.txt");
     while (input >> l >> r) {
         left.push_back(l);
@@ -44,7 +43,6 @@ void part2() {
     std::unordered_map<int, int> right;
 
     int l, r;
-
     std::ifstream input = open_input("input/input01.txt");
     while (input >> l >> r) {
         left.push_back(l);
