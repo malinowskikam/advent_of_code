@@ -1,3 +1,4 @@
-int get_util_int();
+#include <fstream>
 
-int get_util_arg(int val);
+void panic(std::string);
+std::ifstream open_input(std::string filename);
