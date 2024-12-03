@@ -28,7 +28,7 @@ void part1() {
         int l = std::stoi(match[1]);
         int r = std::stoi(match[2]);
 
-        sum += l*r;
+        sum += l * r;
     }
 
     std::cout << sum << std::endl;
@@ -36,6 +36,30 @@ void part1() {
 
 void part2() {
     int sum = 0;
+
+    std::regex exp(R"x(mul\((-?\d+),(-?\d+)\)|do\(\)|don't\(\))x");
+    std::string input = read_input("input/input03.txt");
+
+    std::sregex_iterator begin(input.begin(), input.end(), exp);
+    std::sregex_iterator end;
+
+    bool enabled = true;
+    for (auto it = begin; it != end; ++it) {
+        std::smatch match = *it;
+
+        assert(match.size() > 0);
+        if (match[0] == "do()") {
+            enabled = true;
+        } else if (match[0] == "don't()") {
+            enabled = false;
+        } else if (enabled) {
+            assert(match.size() == 3);
+            int l = std::stoi(match[1]);
+            int r = std::stoi(match[2]);
+
+            sum += l * r;
+        }
+    }
 
     std::cout << sum << std::endl;
 }
