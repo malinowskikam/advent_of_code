@@ -1,3 +1,4 @@
+#include <iterator>
 #include <util.hpp>
 
 #include <fstream>
@@ -17,4 +18,11 @@ std::ifstream open_input(std::string filename) {
     }
 
     return std::ifstream(filename);
+}
+
+std::string read_input(std::string filename) {
+    std::ifstream input = open_input(filename);
+
+    return std::string(std::istreambuf_iterator<char>(input),
+                       std::istreambuf_iterator<char>());
 }
