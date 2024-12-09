@@ -105,7 +105,6 @@ void part2() {
     }
 
     std::cout << sum << std::endl;
-    ;
 }
 
 bool check_update(std::unordered_map<int, std::unordered_set<int>> &rules,
