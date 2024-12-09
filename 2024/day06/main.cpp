@@ -48,6 +48,8 @@ Point get_next_point(int dir, const Point &current);
 bool is_out_of_bounds(const Grid &grid, const Point &point);
 std::unordered_set<Point> gather_visited(const Grid &grid, Point current,
                                          int dir);
+bool test_grid_with_point(Grid grid, Point current, int dir,
+                              Point extra_wall);
 
 int main() {
     part1();
@@ -65,6 +67,17 @@ void part1() {
 
 void part2() {
     int count = 0;
+
+    int dir = DIR_UP;
+    Point current;
+    std::ifstream input = open_input("input/input06.txt");
+    Grid grid = build_grid(input, current);
+    std::unordered_set<Point> visited = gather_visited(grid, current, dir);
+    for (Point p : visited) {
+        if (p != current && test_grid_with_point(grid, current, dir, p)) {
+            count++;
+        }
+    }
 
     std::cout << count << std::endl;
 }
@@ -93,8 +106,8 @@ Point get_next_point(int dir, const Point &current) {
 }
 
 bool is_out_of_bounds(const Grid &grid, const Point &point) {
-    return point.x < 0 || point.y < 0 || point.x > grid.size() - 1 ||
-           point.y > grid[point.x].size() - 1;
+    return point.x < 0 || point.y < 0 || point.x > (int)grid.size() - 1 ||
+           point.y > (int)grid[point.x].size() - 1;
 }
 
 Grid build_grid(std::ifstream &is, Point &current) {
@@ -152,4 +165,30 @@ std::unordered_set<Point> gather_visited(const Grid &grid, Point current,
     }
 
     return visited;
+}
+
+bool test_grid_with_point(Grid grid, Point current, int dir, Point extra_wall) {
+    grid[extra_wall.x][extra_wall.y] |= WALL_FLAG;
+    bool inf_loop = false;
+
+    while (true) {
+        Point next = get_next_point(dir, current);
+
+        if (is_out_of_bounds(grid, next)) {
+            break;
+        }
+
+        if (grid[next.x][next.y] & WALL_FLAG) {
+            dir = (dir + 1) % 4;
+        } else {
+            if (grid[next.x][next.y] & (VISITED_UP_FLAG << dir)) {
+                inf_loop = true;
+                break;
+            }
+            grid[next.x][next.y] |= (VISITED_UP_FLAG << dir);
+            current = next;
+        }
+    }
+
+    return inf_loop;
 }
